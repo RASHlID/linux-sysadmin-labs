@@ -6,7 +6,8 @@ Hands-on Linux system administration labs completed while studying for the RHCSA
 
 - [x] Chapter 2 – Essential Shell Skills
 - [x] Chapter 3 – Essential File Management Tools
-- [ ] Chapter 4
+- [x] Chapter 4 - Working with Text Files
+- [ ] Chapter 5 -
 
 ## Skills Practised
 
@@ -122,3 +123,39 @@ Used the environment to practise creating archives, inspecting backup contents, 
 - `-C` allows controlled extraction to another directory.
 - Hard links share an inode, while symbolic links reference another pathname.
 - gzip uses `z`, bzip2 uses `j`, and xz uses `J` with `tar`.
+---
+
+# Chapter 4 – Working with Text Files
+
+Hands-on practice with Linux text processing, searching, regular expressions, and command pipelines.
+
+## Skills Practised
+
+- Viewing text files with `cat` and `less`
+- Navigating and searching inside `less`
+- Displaying specific lines with `head` and `tail`
+- Monitoring files with `tail -f`
+- Counting lines, words, and bytes with `wc`
+- Extracting fields with `cut`
+- Sorting text and fields with `sort`
+- Combining multiple commands using pipes
+- Searching text with `grep`
+- Case-insensitive and inverse matching with `grep`
+- Using regular expressions
+- Using line anchors `^` and `$`
+- Using character sets `[ ]` and wildcards `.`
+- Using regex multipliers such as `*`
+- Extracting fields with `awk`
+- Displaying, replacing, and deleting text with `sed`
+
+## Lab Structure
+
+Created a text-processing lab environment:
+
+```text
+chapter4lab/
+├── backup/
+├── data/
+│   ├── server.log
+│   └── users.txt
+└── reports/
