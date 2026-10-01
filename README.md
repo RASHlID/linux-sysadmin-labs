@@ -7,7 +7,7 @@ Hands-on Linux system administration labs completed while studying for the RHCSA
 - [x] Chapter 2 – Essential Shell Skills
 - [x] Chapter 3 – Essential File Management Tools
 - [x] Chapter 4 - Working with Text Files
-- [x] Chapter 5 -
+- [x] Chapter 5 - Connecting to a Linux Server
 
 ## Skills Practised
 
