@@ -7,7 +7,7 @@ Hands-on Linux system administration labs completed while studying for the RHCSA
 - [x] Chapter 2 – Essential Shell Skills
 - [x] Chapter 3 – Essential File Management Tools
 - [x] Chapter 4 - Working with Text Files
-- [ ] Chapter 5 -
+- [x] Chapter 5 -
 
 ## Skills Practised
 
@@ -159,3 +159,181 @@ chapter4lab/
 │   ├── server.log
 │   └── users.txt
 └── reports/
+# Chapter 5 – Connecting to a Linux Server
+
+Hands-on practice with Linux sessions, remote administration, secure file transfers, synchronization, and SSH key-based authentication.
+
+## Skills Practised
+
+- Identifying terminal sessions with `tty`
+- Viewing logged-in users and sessions with `w`
+- Understanding TTYs and pseudo-terminals (`/dev/pts`)
+- Checking services with `systemctl`
+- Verifying the OpenSSH server (`sshd`)
+- Connecting to remote systems with SSH
+- Understanding SSH host fingerprints and `known_hosts`
+- Troubleshooting SSH connections with verbose mode
+- Securely transferring files with `scp`
+- Using interactive SFTP sessions
+- Synchronizing files and directories with `rsync`
+- Creating and using SSH public/private key pairs
+- Installing public keys with `ssh-copy-id`
+- Understanding `authorized_keys`
+- Using SSH public-key authentication
+
+## SSH and Remote Sessions
+
+Verified that the OpenSSH server was running and listening for connections:
+
+```bash
+systemctl status sshd
+```
+
+Connected to the server using SSH:
+
+```bash
+ssh rashid@192.168.0.100
+```
+
+Used `tty` and `w` to inspect sessions and observe how SSH creates a new pseudo-terminal under `/dev/pts`.
+
+Used SSH verbose mode to troubleshoot the connection process:
+
+```bash
+ssh -v rashid@192.168.0.100
+```
+
+Learned how SSH stores trusted server identities in:
+
+```text
+~/.ssh/known_hosts
+```
+
+and how host-key fingerprints help detect unexpected changes to a server's identity.
+
+## Secure File Transfer with SCP
+
+Transferred files securely over SSH using `scp`.
+
+Uploaded a local file to a remote directory:
+
+```bash
+scp server-report.txt rashid@192.168.0.100:/tmp
+```
+
+Downloaded a remote file back to the local system:
+
+```bash
+scp rashid@192.168.0.100:/tmp/server-report.txt ~/linux-sysadmin-labs/chapter5lab/data/
+```
+
+Verified transferred files using `ls` and `cat`.
+
+## SFTP
+
+Opened an interactive SFTP session:
+
+```bash
+sftp rashid@192.168.0.100
+```
+
+Practised working with both local and remote directories:
+
+```text
+pwd     - remote working directory
+lpwd    - local working directory
+
+ls      - list remote files
+lls     - list local files
+
+cd      - change remote directory
+lcd     - change local directory
+```
+
+Uploaded and downloaded files using:
+
+```text
+put     - local → remote
+get     - remote → local
+```
+
+## File Synchronization with rsync
+
+Used `rsync` to synchronize directories:
+
+```bash
+rsync -av transfer/ backup/
+```
+
+Observed that the initial synchronization transferred the files, while running the same command again avoided retransferring unchanged files.
+
+Also practised relative paths while synchronizing from inside a directory:
+
+```bash
+rsync -av ../transfer/ ../backup/
+```
+
+## SSH Key Authentication
+
+Inspected an existing Ed25519 SSH key pair:
+
+```text
+~/.ssh/id_ed25519
+~/.ssh/id_ed25519.pub
+```
+
+Installed the public key on the SSH server:
+
+```bash
+ssh-copy-id rashid@192.168.0.100
+```
+
+Verified that the public key was stored in:
+
+```text
+~/.ssh/authorized_keys
+```
+
+Confirmed with SSH verbose output that authentication was performed using the public key:
+
+```text
+Authenticated ... using "publickey"
+```
+
+The private key remained on the client system while the public key was installed on the server.
+
+## Lab Structure
+
+```text
+chapter5lab/
+├── backup/
+│   ├── app.conf
+│   ├── final-check.txt
+│   ├── notes.txt
+│   ├── server-report.txt
+│   └── users.txt
+├── data/
+│   └── server-report.txt
+└── transfer/
+    ├── app.conf
+    ├── final-check.txt
+    ├── notes.txt
+    ├── server-report.txt
+    └── users.txt
+```
+
+## Key Takeaways
+
+- `tty` identifies the terminal associated with the current shell.
+- SSH sessions normally receive their own pseudo-terminal under `/dev/pts`.
+- `systemctl status sshd` can verify whether the SSH server is running.
+- SSH normally uses TCP port 22.
+- SSH host keys identify servers, while `known_hosts` records previously trusted server identities.
+- `ssh -v` provides detailed information for troubleshooting SSH connections.
+- `scp` performs secure one-shot file transfers over SSH.
+- SFTP provides an interactive environment for secure file transfers.
+- `rsync` efficiently synchronizes files and avoids retransferring unchanged data.
+- `.` represents the current directory and `..` represents its parent directory.
+- SSH private keys must remain private; public keys can be installed on remote servers.
+- `ssh-copy-id` installs a public key into the remote user's `authorized_keys`.
+- SSH public-key authentication allows the server to authenticate a user without requiring the remote account password.
