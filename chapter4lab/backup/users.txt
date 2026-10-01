@@ -1,0 +1,6 @@
+rashid:1000:admin:active
+sarah:1001:engineer:active
+adam:1002:engineer:inactive
+john:1004:support:inactive
+amina:1005:support:active
+david:1006:engineer:active

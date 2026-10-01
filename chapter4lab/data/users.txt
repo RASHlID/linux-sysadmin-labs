@@ -1,0 +1,7 @@
+rashid:1000:admin:active
+sarah:1001:developer:active
+adam:1002:developer:inactive
+maria:1003:admin:active
+john:1004:support:inactive
+amina:1005:support:active
+david:1006:developer:active
